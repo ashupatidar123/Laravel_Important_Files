@@ -107,9 +107,16 @@ class AdminModel extends Model
 		return $query->delete();		
 	}
 
-
-
-
-
-
 } // HomeModel class closed
+
+
+Where Conditions
+$where = array('mobile'=>$mobile, 'password'=>$password);
+$or_where = array(
+    ['username',$mobile],['password',$password]
+);
+
+$this->apiModel->fetchQuerySingle('users','*',$where,'','',$or_where);
+
+Output
+$query = "select * from `users` where (`mobile` = ? and `password` = ?) or (`username` = ? and `password` = ?) limit 1"
