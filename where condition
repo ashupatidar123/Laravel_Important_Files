@@ -1,0 +1,51 @@
+======Controller=====
+
+$whereOr = [
+            ['email',$email],
+            ['password',$pass]
+        ];
+$where = ['email'=>$email,'password'=>$pass];
+
+$dd = $this->userModel->fetchQuery('users','*',$where,$whereOr);
+
+========Model========
+
+public function fetchQuery($tbl,$select,$where=NULL,$or_where=NULL,$orderName=NULL,$ascDESC=NULL,$groupBy=NULL,$start=NULL,$end=NULL)
+{
+		DB::enableQueryLog();
+		
+		$query = DB::table($tbl);
+		$query->select($select);
+		if(!empty($where))
+			$query->where($where);
+		if(!empty($or_where)){
+			$query->orWhere($or_where);			
+		}
+		if(!empty($groupBy))
+			$query->groupBy($groupBy);
+		if(!empty($orderName))
+			$query->orderBy($orderName,$ascDESC);
+		if($end>0)
+			offset($start)->limit($end); //offset 0,limit 10 page2 10,10 page3 20,10
+		
+		$query->get()->toArray();
+		UserModel::printData();
+		return $query->get()->toArray();
+	}
+  
+  ===============printData Print Query=================
+  public function printData()
+	{
+		
+		$queries = DB::getQueryLog();
+		echo "<pre>";
+		print_r($queries);
+		echo "</pre>";
+		dd();
+	}
+  
+  ==========Result Query=============
+  
+  select * from `users` where (`email` = ? and `password` = ?) or (`email` = ? and `password` = ?)
+  
+  
