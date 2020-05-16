@@ -1,0 +1,31 @@
+==========header.php=======
+
+<title>@yield('title')</title>
+
+<div>.......some data 
+  <nav>....</nav> 
+</div>
+
+@yield('content') 
+@extends('front.footer')
+
+======Dashboard.php==========
+@extends('front.header')
+@section('title','Dashboard') 
+@section('content')
+
+<div class="container">
+..........
+</div>
+
+@endsection
+
+================================Pass Value on header section==========
+
+<?php
+    use App\Http\Controllers\Front\DashboardController;
+    $hedr = new DashboardController();
+    $hedr->testC();
+?>
+  
+  
