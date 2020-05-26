@@ -1,5 +1,12 @@
 Use on particular controller 
 
+use Illuminate\Contracts\Encryption\DecryptException;
+$id = encrypt($product_img->id);
+
+$product_id = decrypt($product_id);
+
+
+===========2nd Method===========
 use Illuminate\Support\Facades\Crypt;
 
 =========ID string convert===========
