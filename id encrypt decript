@@ -5,6 +5,16 @@ $id = encrypt($product_img->id);
 
 $product_id = decrypt($product_id);
 
+try
+{
+    $product_id = decrypt($product_id);
+}
+catch (DecryptException $e){
+   return redirect()->back();
+}
+
+
+
 
 ===========2nd Method===========
 use Illuminate\Support\Facades\Crypt;
